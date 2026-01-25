@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TSCharacterView: View {
     let character: TSCharacter
+    private let fileManager = LocalFileManager.instance
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -19,6 +20,9 @@ struct TSCharacterView: View {
             Text(character.birthdate ?? "N/A")
         }
         .padding()
+        .onAppear {
+            fileManager.saveImage(folderName: "TheSimpsons_character_images")
+        }
     }
 }
 

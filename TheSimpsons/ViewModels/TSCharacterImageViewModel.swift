@@ -11,11 +11,16 @@ import SwiftUI
 @Observable
 class TSCharacterImageViewModel {
     private let dataService = TSCharacterImageDataService()
+    private let fileManager = LocalFileManager.instance
     var image: UIImage? = nil
     var isLoading: Bool = false
     
+    
     func getImageForCharacter(character: TSCharacter) async {
-        isLoading = true
+        //fileManager.saveImage(folderName: "TheSimpsons_character_images")
+    }
+    
+    func downloadCharacterImage(character: TSCharacter) async {
         do {
             let data = try await dataService.fetchDataImage(character: character)
             guard let data = data else {
@@ -28,7 +33,9 @@ class TSCharacterImageViewModel {
         } catch {
             print("|-- getImageForCharacter error: \(error.localizedDescription) --|")
         }
-
-        isLoading = false
+    }
+    
+    func saveImage() {
+        
     }
 }
