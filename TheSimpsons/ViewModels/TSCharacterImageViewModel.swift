@@ -14,10 +14,17 @@ class TSCharacterImageViewModel {
     private let fileManager = LocalFileManager.instance
     var image: UIImage? = nil
     var isLoading: Bool = false
+    var folderName: String = "character_images"
     
     
     func getImageForCharacter(character: TSCharacter) async {
-        //fileManager.saveImage(folderName: "TheSimpsons_character_images")
+        if let savedImage = fileManager.getImage(imageName: character.name, folderName: folderName) {
+            image = savedImage
+            print("Retrieved image from File Manager!")
+        } else {
+            print("Downloading character image...")
+            await downloadCharacterImage(character: character)
+        }
     }
     
     func downloadCharacterImage(character: TSCharacter) async {
@@ -28,8 +35,10 @@ class TSCharacterImageViewModel {
                 isLoading = false
                 return
             }
+            fileManager.saveImage(imageData: data, imageName: character.name, folderName: folderName)
             image = UIImage(data: data)
             self.image = image
+            print("Character image downloaded")
         } catch {
             print("|-- getImageForCharacter error: \(error.localizedDescription) --|")
         }
