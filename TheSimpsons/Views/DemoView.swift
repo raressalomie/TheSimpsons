@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct DemoView: View {
+    @Binding var searchText: String
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                Text("Search View")
+                    .focused($isFocused)
+            }
+            .navigationTitle("Seearch")
+            .searchable(text: $searchText)
+            .onAppear {
+                isFocused = true
+            }
+        }
     }
 }
 
 #Preview {
-    DemoView()
+    DemoView(searchText: .constant("Text"))
 }
