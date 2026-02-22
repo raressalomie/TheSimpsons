@@ -1,5 +1,5 @@
 //
-//  TSEpisodesView.swift
+//  DemoView.swift
 //  TheSimpsons
 //
 //  Created by Rares Salomie on 12/2/26.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct TSEpisodesView: View {
+struct DemoView: View {
     var body: some View {
-        Text("Episodes View")
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    TSEpisodesView()
+    DemoView()
 }

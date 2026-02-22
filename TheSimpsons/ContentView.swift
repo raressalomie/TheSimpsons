@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var searchText = ""
+    
     var body: some View {
         TabView {
-            TSHomeView()
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
-                }
+            Tab("Home", systemImage: "house") {
+                TSHomeView()
+            }
             
-            TSEpisodesView()
-                .tabItem {
-                    Image(systemName: "tv")
-                    Text("Episodes")
-                }
+            Tab("Episodes", systemImage: "tv") {
+                TSEpisodesView()
+            }
             
-            TSLocationsView()
-                .tabItem {
-                    Image(systemName: "map")
-                    Text("Locations")
-                }
+            Tab("Locations", systemImage: "map") {
+                TSLocationsView()
+            }
+            
+            Tab(role: .search) {
+                DemoView(searchText: $searchText)
+            }
         }
     }
     

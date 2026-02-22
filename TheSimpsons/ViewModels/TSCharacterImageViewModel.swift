@@ -28,6 +28,8 @@ class TSCharacterImageViewModel {
     }
     
     func downloadCharacterImage(character: TSCharacter) async {
+        isLoading = true
+        defer { isLoading = false }
         do {
             let data = try await dataService.fetchDataImage(character: character)
             guard let data = data else {
