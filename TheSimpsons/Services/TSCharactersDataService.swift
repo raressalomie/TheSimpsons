@@ -17,7 +17,7 @@ class TSCharactersDataService {
     let baseUrlString = "https://thesimpsonsapi.com/api/"
     var nextString: String? = nil
     
-    func fetchDataFromEndpoint(endpoint: TSEndpoint) async throws -> [TSCharacter] {
+    func fetchCharactersFromEndpoint(endpoint: TSEndpoint) async throws -> [TSCharacter] {
         var urlString: String = ""
         
         if let nextUrl = nextString {
@@ -25,12 +25,8 @@ class TSCharactersDataService {
         } else {
             urlString = baseUrlString + endpoint.rawValue
         }
-        guard let url = URL(string: urlString) else {
-            throw URLError(.badURL)
-        }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let response = try JSONDecoder().decode(TSResponse.self, from: data)
+        let response: TSResponse<TSCharacter> = try await DataFetchManager.shared.fetch(urlString: urlString)
         dump(response)
         
         if response.next != nil {
@@ -53,4 +49,33 @@ class TSCharacterImageDataService {
         let (data, _) = try await URLSession.shared.data(from: url)
         return data
     }
+}
+
+class TSEpisodeDataService {
+    let baseUrlString = "https://thesimpsonsapi.com/api/"
+    
+    func fetchEpisodes() async throws -> [TSEpisode] {
+        let urlString = baseUrlString + TSEndpoint.episodes.rawValue
+        let response: TSResponse<TSEpisode> = try await DataFetchManager.shared.fetch(urlString: urlString)
+        dump(response)
+        
+        return response.results
+    }
+}
+
+class TSLocationDataService {
+    let baseUrlString = "https://thesimpsonsapi.com/api/"
+    
+    func fetchLocations() async throws -> [TSLocation] {
+        let urlString = baseUrlString + TSEndpoint.locations.rawValue
+        let response: TSResponse<TSLocation> = try await DataFetchManager.shared.fetch(urlString: urlString)
+        dump(response)
+        
+        return response.results
+    }
+    
+}
+
+protocol DataService {
+    
 }

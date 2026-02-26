@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TSHomeView: View {
     @State private var vm = TSCharactersViewModel()
-    @State private var dataservice = TSCharactersDataService()
-    @State private var characters: [TSCharacter] = []
     
     var body: some View {
         NavigationStack {

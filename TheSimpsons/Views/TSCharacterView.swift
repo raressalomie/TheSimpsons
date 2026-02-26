@@ -16,7 +16,9 @@ struct TSCharacterView: View {
             Text(character.gender)
             Text(character.occupation)
             Text(String(character.age ?? 0))
-            Text(character.birthdate ?? "N/A")
+            
+            if character.birthdate != nil { Text(character.birthdate!)
+            }
         }
         .padding()
     }

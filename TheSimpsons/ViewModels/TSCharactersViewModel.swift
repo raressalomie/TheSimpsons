@@ -17,7 +17,7 @@ class TSCharactersViewModel {
     func fetchCharacters() async {
         isLoading = true
         do {
-            let fetchedCharacters = try await dataService.fetchDataFromEndpoint(endpoint: .characters)
+            let fetchedCharacters = try await dataService.fetchCharactersFromEndpoint(endpoint: .characters)
             characters.append(contentsOf: fetchedCharacters)
             isLoading = false
         } catch {

@@ -9,10 +9,10 @@
 import Foundation
 
 // MARK: - TSCharacter
-struct TSResponse: Codable {
+struct TSResponse<T: Codable>: Codable {
     let count: Int
     let next: String?
     let prev: String?
     let pages: Int
-    let results: [TSCharacter]
+    let results: [T]
 }
