@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TSHomeView: View {
+    let filters = ["All", "Gender", "Occupation", "Status", "Age"]
+    
     @State private var vm = TSCharactersViewModel()
     
     var body: some View {
@@ -18,6 +20,15 @@ struct TSHomeView: View {
                         .frame(width: 200, height: 200)
                     Text("Fertching data...")
                 } else {
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(filters, id: \.self) { filter in
+                                FilterPill(title: filter)
+                            }
+                        }
+                        .padding(10)
+                    }
+                    
                     characterList
                 }
             }
@@ -30,7 +41,9 @@ struct TSHomeView: View {
 }
 
 extension TSHomeView {
+    
     private var characterList: some View {
+        
         List {
             ForEach(vm.characters, id: \.id) { character in
                 NavigationLink {
